@@ -361,3 +361,5 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+/snippcare-dbs-baseline-upstream.sln
+/snippcare-dbs-baseline-upstream.sqlproj
