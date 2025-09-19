@@ -1,0 +1,25 @@
+﻿CREATE TABLE [dbo].[CallContext] (
+    [Id]                     UNIQUEIDENTIFIER NOT NULL,
+    [Version]                INT              CONSTRAINT [DF_CallContext_Version] DEFAULT ((0)) NOT NULL,
+    [Origin]                 NVARCHAR (50)    COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
+    [ClientId]               INT              NOT NULL,
+    [SiteRef]                NVARCHAR (50)    COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
+    [SiteId]                 INT              NULL,
+    [UserId]                 INT              NULL,
+    [TerminalId]             NVARCHAR (50)    COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
+    [RequestDateTime]        DATETIME         CONSTRAINT [DF_CallContext_RequestDateTime] DEFAULT (getdate()) NOT NULL,
+    [Created]                DATETIME         CONSTRAINT [DF_CallContext_Created] DEFAULT (getdate()) NOT NULL,
+    [CatalystAgent]          NVARCHAR (50)    COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
+    [ExternalOperationRefId] NVARCHAR (50)    COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
+    [ExternalUserId]         NVARCHAR (100)   COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
+    [ExtraInfo]              NVARCHAR (50)    COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
+    [TrxIdRef]               NVARCHAR (50)    COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
+    [Username]               NVARCHAR (50)    COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
+    [StartTime]              DATETIME         DEFAULT (getdate()) NULL,
+    [EndTime]                DATETIME         DEFAULT (getdate()) NULL,
+    CONSTRAINT [PK_CallContext] PRIMARY KEY CLUSTERED ([Id] ASC) WITH (FILLFACTOR = 100),
+    CONSTRAINT [FK_CallContext_ClientId] FOREIGN KEY ([ClientId]) REFERENCES [dbo].[Client] ([ClientId]),
+    CONSTRAINT [FK_CallContext_SiteId] FOREIGN KEY ([SiteId]) REFERENCES [dbo].[Site] ([SiteId]),
+    CONSTRAINT [FK_CallContext_User] FOREIGN KEY ([UserId]) REFERENCES [dbo].[User] ([UserId])
+);
+

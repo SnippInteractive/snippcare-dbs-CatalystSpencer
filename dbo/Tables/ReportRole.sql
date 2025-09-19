@@ -1,0 +1,6 @@
+﻿CREATE TABLE [dbo].[ReportRole] (
+    [ReportId] INT NOT NULL,
+    [RoleId]   INT NOT NULL,
+    CONSTRAINT [PK_ReportRole] PRIMARY KEY CLUSTERED ([ReportId] ASC, [RoleId] ASC) WITH (FILLFACTOR = 100, STATISTICS_NORECOMPUTE = ON)
+);
+

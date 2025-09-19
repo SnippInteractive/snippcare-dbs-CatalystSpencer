@@ -1,0 +1,84 @@
+﻿-- =============================================
+-- Author:		Ulisses Franca
+-- Create date: 2013-06-09
+-- Description:	Generates numbers for 
+-- =============================================
+CREATE PROCEDURE [dbo].[sp_CreateNumbersForDeviceNumberGeneratorTemplate]
+	-- Add the parameters for the stored procedure here
+	@TemplateId int,
+	@TotalNumbers decimal,
+	@StatusId INT,
+	@UserId INT,
+	@Reference nvarchar(50)=null
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+	declare @Prefix nvarchar(50);
+	declare @NUmberLength int ;
+	declare @Suffix nvarchar(50);
+	DECLARE @exists bit;
+
+	select @Prefix=Prefix,@suffix=Suffix,@NumberLength=TotalNumberlength from Devicenumbergeneratortemplate where id = @templateId;
+
+    -- Insert statements for procedure here
+    DECLARE @TotalNumbersGenerated decimal;
+	SET @TotalNumbersGenerated = 0;
+	DECLARE @NumberSequencialRetries decimal;
+	SET @NumberSequencialRetries = 0;
+	DECLARE @Number nvarchar(50);
+	DECLARE @checkSum int;
+	WHILE (@TotalNumbersGenerated < @TotalNumbers and @NumberSequencialRetries < 100)
+	BEGIN
+			--DBCC FREESESSIONCACHE
+			--DBCC FREEPROCCACHE
+			BEGIN TRY
+			SELECT @number= [dbo].[GenerateRandomNumber] (@Prefix,@Numberlength - LEN(@Prefix) - 1 ,@Suffix);
+			select @checkSum= [dbo].[Modulo10](@number);
+			IF EXISTS(select devicenumber from DeviceNumberPool WITH(NOLOCK) where DeviceNumber =  (@number) + cast(@checkSum as nvarchar(1))) 
+			BEGIN
+				 WAITFOR DELAY '00:00:00:050';
+			END
+			ELSE
+			BEGIN 
+					INSERT INTO [dbo].[DeviceNumberPool]
+					   ([DeviceNumber]
+					   ,[TemplateId]
+					   ,[CheckSum]
+					   ,[CreatedDate]
+					   ,[StatusId]
+					   ,[CreatedBy]
+					   ,[UpdatedBy]
+					   ,[UpdatedDate]
+					   ,[LotId]
+					   ,[Reference])
+				 VALUES
+					   (
+					   (@number) + cast(@checkSum as nvarchar(1))
+					   ,@TemplateId
+					   ,@checkSum
+					   ,Getdate()
+					   ,@StatusId
+					   ,@UserId
+					   ,@UserId
+					   ,Getdate()
+					   ,null
+					   ,@Reference);
+				Set @TotalNumbersGenerated= @TotalNumbersGenerated +1;
+				set @NumberSequencialRetries = 0;
+			END
+			
+		END TRY
+		BEGIN CATCH
+			 --EXECUTE usp_GetErrorInfo;
+			 set @NumberSequencialRetries=@NumberSequencialRetries+1;
+		END CATCH
+	END
+    update Devicenumbergeneratortemplate 
+    set     TotalNUmbersused = TotalNUmbersused + @TotalNumbersGenerated,
+    AvailableNUmbersInPool = AvailableNUmbersInPool + @TotalNumbersGenerated
+    where id = @templateId;
+    
+	return @TotalNumbersGenerated;
+END

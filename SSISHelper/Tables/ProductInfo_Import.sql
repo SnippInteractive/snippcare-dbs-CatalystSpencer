@@ -1,0 +1,26 @@
+﻿CREATE TABLE [SSISHelper].[ProductInfo_Import] (
+    [ID]                 INT            IDENTITY (1, 1) NOT NULL,
+    [Version]            INT            NULL,
+    [ClientID]           INT            NULL,
+    [ProductID]          NVARCHAR (75)  NOT NULL,
+    [ProductDescription] NVARCHAR (250) NULL,
+    [AnalysisCode1]      NVARCHAR (100) NULL,
+    [AnalysisCode2]      NVARCHAR (100) NULL,
+    [AnalysisCode3]      NVARCHAR (100) NULL,
+    [AnalysisCode4]      NVARCHAR (100) NULL,
+    [AnalysisCode5]      NVARCHAR (100) NULL,
+    [AnalysisCode6]      NVARCHAR (100) NULL,
+    [AnalysisCode7]      NVARCHAR (100) NULL,
+    [AnalysisCode8]      NVARCHAR (100) NULL,
+    [AnalysisCode9]      NVARCHAR (100) NULL,
+    [AnalysisCode10]     NVARCHAR (100) NULL,
+    [AnalysisCode11]     NVARCHAR (100) NULL,
+    [AnalysisCode12]     NVARCHAR (100) NULL,
+    [AnalysisCode13]     NVARCHAR (100) NULL,
+    [AnalysisCode14]     NVARCHAR (100) NULL,
+    [AnalysisCode15]     NVARCHAR (100) NULL,
+    [ImportDate]         DATETIME       NULL,
+    [Filename]           NVARCHAR (MAX) NULL,
+    [ImportStatus]       NVARCHAR (10)  NULL
+);
+

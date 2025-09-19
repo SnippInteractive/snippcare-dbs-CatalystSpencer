@@ -1,0 +1,3 @@
+﻿CREATE SCHEMA [DBHelper]
+    AUTHORIZATION [dbo];
+

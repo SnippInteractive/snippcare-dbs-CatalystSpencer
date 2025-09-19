@@ -1,0 +1,3 @@
+﻿CREATE SCHEMA [SSISHelper]
+    AUTHORIZATION [dbo];
+

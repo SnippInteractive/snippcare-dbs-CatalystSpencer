@@ -1,0 +1,26 @@
+﻿CREATE TABLE [dbo].[EmailMatch] (
+    [Serial]                      FLOAT (53)     NULL,
+    [SID]                         FLOAT (53)     NULL,
+    [Submitted Time]              DATETIME       NULL,
+    [Completed Time]              DATETIME       NULL,
+    [Modified Time]               DATETIME       NULL,
+    [Draft]                       FLOAT (53)     NULL,
+    [IP-Adresse]                  NVARCHAR (255) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
+    [UID]                         FLOAT (53)     NULL,
+    [Benutzername]                NVARCHAR (255) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
+    [Vorname]                     NVARCHAR (255) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
+    [Nachname]                    NVARCHAR (255) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
+    [Karten-Nr# TopPharmCardPlus] NVARCHAR (255) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
+    [E-Mail-Adresse]              NVARCHAR (255) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
+    [Einverständniserklärung]     NVARCHAR (255) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
+    [MailingListId]               FLOAT (53)     NULL,
+    [FormId]                      FLOAT (53)     NULL,
+    [FormEncoding]                NVARCHAR (255) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
+    [user_id]                     VARCHAR (50)   COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
+    [Club_Newsletter]             VARCHAR (50)   COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
+    [Fashion_Newsletter]          VARCHAR (50)   COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
+    [Email]                       VARCHAR (80)   COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
+    [Opt-In]                      VARCHAR (50)   COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
+    [Email valid]                 VARCHAR (50)   COLLATE SQL_Latin1_General_CP1_CI_AS NULL
+);
+
